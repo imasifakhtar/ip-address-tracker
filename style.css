@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap");
+
+:root {
+  --Very-Dark-Gray: hsl(0, 0%, 17%);
+  --Dark-Gray: hsl(0, 0%, 59%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Rubik", sans-serif;
+}
+
+.top {
+  height: 40vh;
+  background-image: url(./images/pattern-bg-desktop.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.top h1 {
+  color: #fff;
+}
+
+.search input {
+  padding: 20px;
+  width: 40vw;
+  border-radius: 10px 0 0 10px;
+  border: none;
+}
+
+.search {
+  background-color: black;
+  border-radius: 10px;
+}
+
+.search button {
+  height: 100%;
+  width: 40px;
+  background-color: black;
+  border: none;
+  border-radius: 0 10px 10px 0;
+}
+
+.search button:hover {
+  cursor: pointer;
+}
+
+.middle {
+  position: absolute;
+  top: 31%;
+  left: 10%;
+  background-color: #fff;
+  width: 80%;
+  height: 18vh;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.ip,
+.location,
+.time,
+.isp {
+  height: 100%;
+  width: 100%;
+
+}
+
+.vl {
+  border-left: 1px solid var(--Dark-Gray);
+  height: 12vh;
+  padding: 0 20px;
+}
+
+.bottom {
+  height: 60vh;
+  background-color: aqua;
+}
