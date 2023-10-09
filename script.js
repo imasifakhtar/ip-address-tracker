@@ -5,25 +5,71 @@ const userLocation = document.querySelector(".user-location");
 const userTimezone = document.querySelector(".user-timezone");
 const userISP = document.querySelector(".user-isp");
 const leafMap = document.querySelector("#map");
+const API_KEY = "at_37gVCXjgJy4T2T7PV4dEBrEsQ1YhH";
 
+let ipAddress;
+let timeZone;
+let loc;
+let isp;
+let lat;
+let lng;
 
+let map = L.map("map").setView([51.505, -0.09], 13);
 
-// var map = L.map('map').setView([51.505, -0.09], 13);
-
-async function getData(ip) {
-    // API KEY LINE
-    let data = await response.json();
-    console.log(data);
-    // console.log(data.as.name);
-    userIP.textContent = inputIP.value;
-}
-
-function getIP(data) {
-    console.log(data)
-}
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
 
 buttonSubmit.addEventListener("click", (e) => {
-    e.preventDefault();
-    getIP(inputIP.value);
+  e.preventDefault();
+
+  if (
+    inputIP.value.match(
+      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+    )
+  ) {
     getData(inputIP.value);
-})
+  } else {
+    alert("Please enter a valid IP address");
+  }
+});
+
+const getData = async (ip) => {
+  const response = await fetch(
+    `https://geo.ipify.org/api/v2/country,city?apiKey=${API_KEY}&ipAddress=${ip}`
+  );
+
+  const resData = await response.json();
+  console.log(resData);
+
+  ipAddress = resData.ip;
+  timeZone = resData.location.timezone;
+  isp = resData.isp;
+  loc = resData.location.city;
+  lat = resData.location.lat;
+  lng = resData.location.lng;
+
+  userIP.innerHTML = ipAddress;
+  userLocation.innerHTML = `${loc}, ${resData.location.country}`;
+  userTimezone.innerHTML = `UTC ${timeZone}`;
+  userISP.innerHTML = isp;
+
+  mapLocation(lat, lng);
+};
+
+const mapLocation = (lat, lng) => {
+  let markerIcon = L.icon({
+    iconUrl: "images/icon-location.svg",
+    iconSize: [45, 55],
+    iconAnchor: [23, 55],
+  });
+
+  map.setView([lat, lng], 17);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: false,
+  }).addTo(map);
+
+  L.marker([lat, lng], { icon: markerIcon }).addTo(map);
+};
