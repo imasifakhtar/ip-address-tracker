@@ -36,14 +36,16 @@ body {
 
 .search input {
   padding: 20px;
-  width: 40vw;
+  width: 30%;
   border-radius: 10px 0 0 10px;
   border: none;
 }
 
 .search {
-  background-color: black;
   border-radius: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .search button {
@@ -77,7 +79,13 @@ body {
 .isp {
   height: 100%;
   width: 100%;
+}
 
+.ip h2,
+.location h2,
+.time h2,
+.isp h2 {
+  margin-top: 20px;
 }
 
 .vl {
@@ -86,7 +94,7 @@ body {
   padding: 0 20px;
 }
 
-.bottom {
+#map {
   height: 60vh;
   background-color: aqua;
 }
