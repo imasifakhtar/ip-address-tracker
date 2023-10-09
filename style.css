@@ -39,6 +39,11 @@ body {
   width: 30%;
   border-radius: 10px 0 0 10px;
   border: none;
+  font-family: inherit;
+}
+
+.search input:focus {
+  outline: none;
 }
 
 .search {
@@ -58,6 +63,7 @@ body {
 
 .search button:hover {
   cursor: pointer;
+  background-color: rgb(62, 62, 62);
 }
 
 .middle {
@@ -81,6 +87,10 @@ body {
 .isp {
   height: 100%;
   width: 100%;
+}
+
+.ip span, .location span, .time span, .isp span {
+  color: var(--Dark-Gray);
 }
 
 .ip h2,

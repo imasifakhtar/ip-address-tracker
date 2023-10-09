@@ -36,26 +36,33 @@ buttonSubmit.addEventListener("click", (e) => {
 });
 
 const getData = async (ip) => {
-  const response = await fetch(
-    `https://geo.ipify.org/api/v2/country,city?apiKey=${API_KEY}&ipAddress=${ip}`
-  );
+  try {
+    const response = await fetch(
+      `https://geo.ipify.org/api/v2/country,city?apiKey=${API_KEY}&ipAddress=${ip}`
+    );
 
-  const resData = await response.json();
-  console.log(resData);
+    if (!response.ok) {
+      throw new Error(`API request failed with status: ${response.status}`);
+    }
 
-  ipAddress = resData.ip;
-  timeZone = resData.location.timezone;
-  isp = resData.isp;
-  loc = resData.location.city;
-  lat = resData.location.lat;
-  lng = resData.location.lng;
+    const resData = await response.json();
 
-  userIP.innerHTML = ipAddress;
-  userLocation.innerHTML = `${loc}, ${resData.location.country}`;
-  userTimezone.innerHTML = `UTC ${timeZone}`;
-  userISP.innerHTML = isp;
+    ipAddress = resData.ip;
+    timeZone = resData.location.timezone;
+    isp = resData.isp;
+    loc = resData.location.city;
+    lat = resData.location.lat;
+    lng = resData.location.lng;
 
-  mapLocation(lat, lng);
+    userIP.innerHTML = ipAddress;
+    userLocation.innerHTML = `${loc}, ${resData.location.country}`;
+    userTimezone.innerHTML = `UTC ${timeZone}`;
+    userISP.innerHTML = isp;
+
+    mapLocation(lat, lng);
+  } catch (error) {
+    console.log("An error occurred:", error);
+  }
 };
 
 const mapLocation = (lat, lng) => {
